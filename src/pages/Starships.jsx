@@ -19,7 +19,7 @@ const Starships = () => {
     const count = data.count;
     console.log(count);
     // if next button and index does not exceed results limit
-    if (option === "next" && index <= count.toString()[0]) {
+    if (option === "next" && index * 10 < count) {
       setIndex(index + 1);
       console.log(index);
     } else if (option === "prev" && index > 1) {
