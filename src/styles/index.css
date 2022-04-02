@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .indexButtonContainer {
+    @apply flex justify-evenly items-center w-96 max-w-lg pb-5;
+  }
+
+  .homeLink {
+    @apply relative mx-5 md:mx-10 h-8 text-lg font-medium self-start mb-5 hover:border-b-2 border-yellow-400 transition-all duration-150 ease-in-out;
+  }
+  .gridContainer {
+    @apply mt-5 px-5 flex flex-col justify-center items-center;
+  }
+  .gridWrapper {
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 min-h-[500px] gap-4 xl:gap-10;
+  }
+  .gridCell {
+    @apply min-w-[300px] shadow-inner shadow-blue-300 text-gray-100 border border-blue-300 rounded-xl space-y-2 p-4 bg-[rgba(0,0,0,.4)];
+  }
+}
+@layer base {
+  div {
+    @apply relative text-yellow-400;
+  }
+  button {
+    @apply h-10 text-lg hover:border-b-2 border-yellow-400 transition-all duration-150 ease-in-out;
+  }
+}
