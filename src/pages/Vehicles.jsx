@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 import Loading from "../components/Loading";
 import callSwapi from "../utils/callSwapi";
+import indexChange from "../utils/indexChange";
 
 const Vehicles = () => {
   const [data, setData] = useState(null);
@@ -10,47 +12,46 @@ const Vehicles = () => {
   useEffect(() => {
     // for promise to work in useEffect. need to put async function inside then call it
     const fetchData = async () => {
+      setData(null); // This is so we have loading screen while we wait for call when next/previous is pushed
       setData(await callSwapi("vehicles", index));
     };
     fetchData();
   }, [index]);
 
-  const indexClick = (option) => {
-    const count = data.count;
-    // if next button and index does not exceed results limit
-    if (option === "next" && index * 10 < count) {
-      setIndex(index + 1);
-      console.log(index);
-    } else if (option === "prev" && index > 1) {
-      setIndex(index - 1);
-    }
-  };
   return (
     <>
+      <Header selected="vehicles" />
       {!data ? (
         <Loading />
       ) : (
-        <div className="gridContainer">
-          <Link to="/" className="homeLink">
-            Home
-          </Link>
+        <div>
+          <div className="gridContainer">
+            <div className="indexButtonContainer">
+              <button
+                onClick={() => setIndex(indexChange("prev", index, data.count))}
+              >
+                Prev
+              </button>
+              <p className="text-lg">Total: {data.count}</p>
+              <button
+                onClick={() => setIndex(indexChange("next", index, data.count))}
+              >
+                Next
+              </button>
+            </div>
 
-          <div className="indexButtonContainer">
-            <button onClick={() => indexClick("prev")}>Prev</button>
-            <p className="text-lg">Total: {data.count}</p>
-            <button onClick={() => indexClick("next")}>Next</button>
+            <div className="gridWrapper">
+              {data?.results?.map((result) => (
+                <div key={result.name} className="gridCell">
+                  <p>Name: {result.name}</p>
+                  <p>Cargo capacity: {result.cargo_capacity}</p>
+                  <p>Crew: {result.crew}</p>
+                  <p>Max atmosphere speed {result.max_atmosphering_speed}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className="gridWrapper">
-            {data?.results?.map((result) => (
-              <div key={result.name} className="gridCell">
-                <p>Name: {result.name}</p>
-                <p>Cargo capacity: {result.cargo_capacity}</p>
-                <p>Crew: {result.crew}</p>
-                <p>Max atmosphere speed {result.max_atmosphering_speed}</p>
-              </div>
-            ))}
-          </div>
+          <Footer />
         </div>
       )}
     </>

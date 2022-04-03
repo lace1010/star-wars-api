@@ -3,8 +3,6 @@ import Loading from "../components/Loading";
 import Header from "../components/Header";
 import callSwapi from "../utils/callSwapi";
 import Footer from "../components/Footer";
-import smallRomanNum from "../utils/smallRomanNum";
-import { Link } from "react-router-dom";
 
 const Films = () => {
   const [data, setData] = useState(null);
@@ -30,23 +28,12 @@ const Films = () => {
             <div className="gridWrapper">
               {data?.results?.map((result, i) => {
                 return (
-                  <Link
-                    key={result.episode_id}
-                    to="/film"
-                    state={{ url: result.url, index: result.episode_id }}
-                  >
-                    <div className="gridCellWithImages">
-                      <img
-                        className="gridCellImage"
-                        src={require(`../images/movies/star-wars-${result.episode_id}.jpg`)}
-                        alt="movie backdrop"
-                      />
-                      <p className="gridCellInfo">
-                        Episode {smallRomanNum(result.episode_id)}:{" "}
-                        {result.title}
-                      </p>
-                    </div>
-                  </Link>
+                  <div key={result.episode_id} className="gridCell">
+                    <p>Title: {result.title}</p>
+                    <p>Directed by: {result.director}</p>
+                    <p>Producer: {result.producer}</p>
+                    <p>Release Date: {result.release_date}</p>
+                  </div>
                 );
               })}
             </div>

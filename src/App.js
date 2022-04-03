@@ -1,6 +1,7 @@
 import React from "react";
 import Films from "./pages/Films";
-import wallPaper from "./images/star-wars-wallpaper.png";
+import Film from "./pages/Film";
+import wallPaper from "./images/home-bgs/star-wars-wallpaper.png";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import People from "./pages/People";
@@ -19,14 +20,12 @@ function App() {
         src={wallPaper}
         alt="background"
       />
-      <h1 className="px-7 md:px-12 pt-5 text-6xl md:text-8xl text-yellow-300 font-bold">
-        Star Wars
-      </h1>
 
       <BrowserRouter>
         <Routes>
           <Route index exact path="/" element={<Home />} />
           <Route path="/films" element={<Films />}></Route>
+          <Route path="/film" element={<Film />}></Route>
           <Route path="/people" element={<People />}></Route>
           <Route path="/planets" element={<Planets />}></Route>
           <Route path="/species" element={<Species />}></Route>
@@ -34,10 +33,6 @@ function App() {
           <Route path="/vehicles" element={<Vehicles />}></Route>
         </Routes>
       </BrowserRouter>
-
-      <footer className="bottom-0 w-screen p-5 mt-20 bg-[rgba(0,0,0,.5)] flex items-center justify-center ">
-        Developed by Hunter Lacefield
-      </footer>
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import React from "react";
-import chewbacca from "../images/chewbacca.png";
+import chewbacca from "../images/loading/chewbacca.png";
 
 const Loading = () => {
+  // leaning towards keeping the bg pic out
+  // deciding if I want to keep these classes bg-[url('../images/loading/star-wars-bg.jpeg')] mix-blend-hard-light Or soft light
   return (
-    <div className="fixed top-0 h-screen min-h-[500px] w-full flex items-center justify-center bg-[url('../images/star-wars-bg.jpeg')] mix-blend-soft-light">
+    <div className="fixed top-0 h-screen min-h-[500px] w-full flex items-center justify-center mix-blend-hard-light">
       <img
         className="h-52 object-contain  animate-spin "
         src={chewbacca}

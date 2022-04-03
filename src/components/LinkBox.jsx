@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const LinkBox = ({ link, src }) => {
   return (
     <Link
-      className="relative capitalize h-52 w-[350px] bg-cover bg-no-repeat rounded-xl shadow-lg shadow-gray-800 hover:scale-105 transition-all duration-150 ease-in-out"
+      className="relative capitalize h-52 w-[350px] bg-cover bg-no-repeat rounded-xl shadow-lg shadow-gray-800 hover:scale-105 hover:brightness-75 transition-all duration-150 ease-in-out"
       to={link}
       style={{ backgroundImage: `url('${src}')` }}
     >

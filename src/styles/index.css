@@ -7,17 +7,26 @@
     @apply flex justify-evenly items-center w-96 max-w-lg pb-5;
   }
 
-  .homeLink {
-    @apply relative mx-5 md:mx-10 h-8 text-lg font-medium self-start mb-5 hover:border-b-2 border-yellow-400 transition-all duration-150 ease-in-out;
+  .headerLink {
+    @apply h-8 text-base sm:text-lg font-medium hover:border-b-2 border-yellow-400 transition-all duration-150 ease-in-out;
   }
   .gridContainer {
-    @apply mt-5 px-5 flex flex-col justify-center items-center;
+    @apply mt-5 px-5 flex flex-col justify-center items-center mx-auto max-w-5xl;
   }
   .gridWrapper {
-    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 min-h-[500px] gap-4 xl:gap-10;
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 min-h-[500px] gap-5 xl:gap-10;
   }
   .gridCell {
-    @apply min-w-[300px] shadow-inner shadow-blue-300 text-gray-100 border border-blue-300 rounded-xl space-y-2 p-4 bg-[rgba(0,0,0,.4)];
+    @apply w-72 shadow-inner shadow-blue-300 text-gray-100 border border-blue-300 rounded-xl space-y-2 p-4 bg-[rgba(0,0,0,.4)];
+  }
+  .gridCellWithImages {
+    @apply rounded-xl overflow-hidden cursor-pointer shadow-lg shadow-gray-800 hover:scale-105 hover:brightness-75 transition-all duration-150 ease-in-out;
+  }
+  .gridCellImage {
+    @apply h-72 w-full object-cover;
+  }
+  .gridCellInfo {
+    @apply bg-white text-gray-700 p-3 font-bold;
   }
 }
 @layer base {
