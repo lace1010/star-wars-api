@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import People from "./pages/People";
 import Planets from "./pages/Planets";
+import Planet from "./pages/Planet";
 import Species from "./pages/Species";
 import Starships from "./pages/Starships";
 import Vehicles from "./pages/Vehicles";
@@ -30,6 +31,7 @@ function App() {
           <Route path="/people" element={<People />}></Route>
           <Route path="/person" element={<Person />}></Route>
           <Route path="/planets" element={<Planets />}></Route>
+          <Route path="/planet" element={<Planet />}></Route>
           <Route path="/species" element={<Species />}></Route>
           <Route path="/starships" element={<Starships />}></Route>
           <Route path="/vehicles" element={<Vehicles />}></Route>

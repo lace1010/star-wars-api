@@ -83,7 +83,7 @@ const Film = () => {
                   const ind = character.url.split("/")[5];
                   return (
                     <Link
-                      className=" hover:underline cursor-pointer mr-3"
+                      className="relatedLink"
                       key={character.name}
                       to="/person"
                       state={{
@@ -106,11 +106,25 @@ const Film = () => {
             {/* related wrapper 2 */}
             <div className="relatedWrapper col-span-1">
               <h2 className="relatedHeader">Planets </h2>
-              {relatedPlanets?.map((planet) => (
-                <p className="text-gray-700" key={planet.name}>
-                  {planet.name}
-                </p>
-              ))}
+              <div className="linksWrapper">
+                {relatedPlanets?.map((planet) => {
+                  const ind = planet.url.split("/")[5];
+                  return (
+                    <Link
+                      className="relatedLink"
+                      key={planet.name}
+                      to="/planet"
+                      state={{
+                        url: planet.url,
+                        // Grab index by splitting url and grabbing number at end
+                        index: ind,
+                      }}
+                    >
+                      {planet.name}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

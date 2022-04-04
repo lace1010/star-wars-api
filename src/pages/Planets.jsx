@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import callSwapi from "../utils/callSwapi";
+import getUrlIndex from "../utils/getUrlIndex";
 import indexChange from "../utils/indexChange";
 
 const Planets = () => {
@@ -41,14 +43,37 @@ const Planets = () => {
             </div>
 
             <div className="gridWrapper">
-              {data?.results?.map((result) => (
-                <div key={result.name} className="gridCell">
-                  <p>Name: {result.name}</p>
-                  <p>Population: {result.population}</p>
-                  <p>climate: {result.climate}</p>
-                  <p>Terrain: {result.terrain}</p>
-                </div>
-              ))}
+              {data?.results?.map((result, i) => {
+                console.log(index);
+                // added this conditin because api returns a planet with all unknown facts and want to get rid of it.
+
+                return (
+                  <Link
+                    key={i}
+                    to="/planet"
+                    state={{
+                      url: result.url,
+                      // send the currect index to Person page based on which set of results is being returned (util function has the logic)
+                      index: getUrlIndex(index, data.count, i),
+                    }}
+                  >
+                    <div className="gridCellWithImages">
+                      <img
+                        className="gridCellImage"
+                        src={require(`../images/planets/star-wars-planet-${getUrlIndex(
+                          index,
+                          data.count,
+                          i
+                        )}.jpg`)}
+                        alt="movie backdrop"
+                      />
+                      <p className="gridCellInfo">
+                        {getUrlIndex(index, data.count, i)}) {result.name}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

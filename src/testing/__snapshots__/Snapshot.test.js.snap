@@ -2,7 +2,7 @@
 
 exports[`app snapshot test 1`] = `
 <div
-  className="fixed top-0 h-screen min-h-[500px] w-full flex items-center justify-center bg-[url('../images/star-wars-bg.jpeg')] mix-blend-soft-light"
+  className="fixed top-0 h-screen min-h-[700px] w-full flex items-center justify-center mix-blend-hard-light"
 >
   <img
     alt="chewbacca head"
