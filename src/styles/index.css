@@ -31,8 +31,21 @@
   .singleInfoContainer {
     @apply flex flex-col sm:flex-row mt-10 h-full mx-5 shadow-lg shadow-gray-800 max-w-5xl lg:mx-auto rounded-xl overflow-hidden;
   }
+  .singleInfoWrapper {
+    @apply bg-white text-gray-700 p-5 flex-grow;
+  }
+
+  .relatedContainer {
+    @apply mt-10  grid grid-cols-1 gap-y-5 sm:gap-x-5 sm:gap-y-0 sm:grid-cols-3 max-w-5xl mx-5 lg:mx-auto overflow-hidden;
+  }
   .relatedWrapper {
-    @apply mt-10 p-5 space-x-2 max-w-xl bg-white shadow-lg shadow-gray-800 rounded-xl;
+    @apply p-5 space-y-2 max-w-xl bg-white shadow-lg shadow-gray-800 rounded-xl;
+  }
+  .relatedHeader {
+    @apply text-2xl font-bold tracking-wider text-gray-800 auto-rows-fr;
+  }
+  .linksWrapper {
+    @apply flex flex-wrap text-gray-700;
   }
 }
 @layer base {

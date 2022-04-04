@@ -45,7 +45,6 @@ const People = () => {
 
             <div className="gridWrapper">
               {data?.results?.map((result, i) => {
-                console.log(i, "<=i");
                 return (
                   <Link
                     key={i}
@@ -66,7 +65,9 @@ const People = () => {
                         )}.jpg`)}
                         alt="movie backdrop"
                       />
-                      <p className="gridCellInfo">{result.name}</p>
+                      <p className="gridCellInfo">
+                        {getUrlIndex(index, data.count, i)}) {result.name}
+                      </p>
                     </div>
                   </Link>
                 );

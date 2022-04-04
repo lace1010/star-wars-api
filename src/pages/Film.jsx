@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import callSingleSwapi from "../utils/callSingleSwapi";
+import relatedSwapi from "../utils/relatedSwapi";
 import smallRomanNum from "../utils/smallRomanNum";
 
 const Film = () => {
@@ -11,6 +12,8 @@ const Film = () => {
   const url = location.state.url;
   const index = location.state.index;
   const [data, setData] = useState(null);
+  const [relatedCharacters, setRelatedCharacters] = useState(null);
+  const [relatedPlanets, setRelatedPlanets] = useState(null);
 
   useEffect(() => {
     // for promise to work in useEffect. need to put async function inside then call it
@@ -20,10 +23,34 @@ const Film = () => {
     fetchData();
   }, [url]);
 
+  // Find related characters
+  useEffect(() => {
+    // for promise to work in useEffect. need to put async function inside then call it
+    const fetchCharacters = async () => {
+      // if data exist. set related characters array by calling utility function and wait for it
+      if (data) {
+        const x = await relatedSwapi(data.characters);
+        setRelatedCharacters(x);
+      }
+    };
+
+    fetchCharacters();
+  }, [data]);
+
+  // Find related planets
+  useEffect(() => {
+    // for promise to work in useEffect. need to put async function inside then call it
+    const fetchCharacters = async () => {
+      // if data exist. set related characters array by calling utility function and wait for it
+      if (data) setRelatedPlanets(await relatedSwapi(data.planets));
+    };
+    fetchCharacters();
+  }, [data]);
+
   return (
     <>
       <Header />
-      {!data ? (
+      {!data && !relatedCharacters && !relatedPlanets ? (
         <Loading />
       ) : (
         <div className="singleContaier">
@@ -33,7 +60,7 @@ const Film = () => {
               src={require(`../images/movies/star-wars-${index}.jpg`)}
               alt="movie backdrop"
             />
-            <div className="bg-white text-gray-700 p-3 flex-grow">
+            <div className="singleInfoWrapper">
               <p className="font-bold">
                 Episode {smallRomanNum(index)}: {data.title}
               </p>
@@ -43,6 +70,47 @@ const Film = () => {
               <p className="sm:text-sm md:text-base">
                 Opening Crawl: {data.opening_crawl}
               </p>
+            </div>
+          </div>
+
+          {/* related info */}
+          <div className="relatedContainer">
+            {/* related wrapper 1 */}
+            <div className="relatedWrapper col-span-2">
+              <h2 className="relatedHeader">Characters </h2>
+              <div className="linksWrapper">
+                {relatedCharacters?.map((character, i) => {
+                  const ind = character.url.split("/")[5];
+                  return (
+                    <Link
+                      className=" hover:underline cursor-pointer mr-3"
+                      key={character.name}
+                      to="/person"
+                      state={{
+                        url: character.url,
+                        // Grab index by splitting url and grabbing number at end
+                        // Have to make condition bc api is broke at 17 for people
+                        index:
+                          character.url.split("/")[5] <= 17
+                            ? ind
+                            : parseInt(ind) - 1,
+                      }}
+                    >
+                      {character.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* related wrapper 2 */}
+            <div className="relatedWrapper col-span-1">
+              <h2 className="relatedHeader">Planets </h2>
+              {relatedPlanets?.map((planet) => (
+                <p className="text-gray-700" key={planet.name}>
+                  {planet.name}
+                </p>
+              ))}
             </div>
           </div>
         </div>

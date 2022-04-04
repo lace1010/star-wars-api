@@ -17,7 +17,7 @@ function App() {
       {/* set up background-image here so we can add overlay with parent div */}
       {/* gives texts a cool overlay effect as well that is fun to play around with */}
       <img
-        className="w-full h-full overflow-auto fixed object-cover object-center mix-blend-overlay"
+        className="w-full h-full overflow-hidden fixed object-cover object-center mix-blend-overlay"
         src={wallPaper}
         alt="background"
       />

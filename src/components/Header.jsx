@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = ({ selected }) => {
   return (
-    <div className="pt-7 px-7 lg:px-12 lg:pt-12 space-y-8">
+    <div className="pt-7 px-7 lg:px-12 lg:pt-12 space-y-8 w-screen overflow-hidden">
       <h1 className="text-6xl md:text-8xl text-yellow-300 font-bold">
         Star Wars
       </h1>
