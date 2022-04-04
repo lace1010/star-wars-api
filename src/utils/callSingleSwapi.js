@@ -1,4 +1,4 @@
-const callIndividualSwapi = async (url) => {
+const callSingleSwapi = async (url) => {
   const data = await fetch(url)
     .then((res) => {
       if (!res.ok) console.log(res.statusText);
@@ -11,4 +11,4 @@ const callIndividualSwapi = async (url) => {
   return data;
 };
 
-export default callIndividualSwapi;
+export default callSingleSwapi;

@@ -28,7 +28,7 @@ const Films = () => {
           <div className="gridContainer">
             <p className="mb-3 px-10 self-start">Total: {data.count}</p>
             <div className="gridWrapper">
-              {data?.results?.map((result, i) => {
+              {data?.results?.map((result) => {
                 return (
                   <Link
                     key={result.episode_id}

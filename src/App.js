@@ -9,6 +9,7 @@ import Planets from "./pages/Planets";
 import Species from "./pages/Species";
 import Starships from "./pages/Starships";
 import Vehicles from "./pages/Vehicles";
+import Person from "./pages/Person";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/films" element={<Films />}></Route>
           <Route path="/film" element={<Film />}></Route>
           <Route path="/people" element={<People />}></Route>
+          <Route path="/person" element={<Person />}></Route>
           <Route path="/planets" element={<Planets />}></Route>
           <Route path="/species" element={<Species />}></Route>
           <Route path="/starships" element={<Starships />}></Route>

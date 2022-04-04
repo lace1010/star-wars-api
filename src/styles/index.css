@@ -28,6 +28,12 @@
   .gridCellInfo {
     @apply bg-white text-gray-700 p-3 font-bold;
   }
+  .singleInfoContainer {
+    @apply flex flex-col sm:flex-row mt-10 h-full mx-5 shadow-lg shadow-gray-800 max-w-5xl lg:mx-auto rounded-xl overflow-hidden;
+  }
+  .relatedWrapper {
+    @apply mt-10 p-5 space-x-2 max-w-xl bg-white shadow-lg shadow-gray-800 rounded-xl;
+  }
 }
 @layer base {
   div {

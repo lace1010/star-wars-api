@@ -4,9 +4,8 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import callSingleSwapi from "../utils/callSingleSwapi";
-import smallRomanNum from "../utils/smallRomanNum";
 
-const Film = () => {
+const Person = () => {
   const location = useLocation();
   const url = location.state.url;
   const index = location.state.index;
@@ -22,27 +21,25 @@ const Film = () => {
 
   return (
     <>
-      <Header />
+      <Header selected="people" />
       {!data ? (
         <Loading />
       ) : (
-        <div className="singleContaier">
+        <div className="singleContainer">
           <div className="singleInfoContainer">
             <img
               className="object-cover max-h-[450px] md:max-h-[350px] w-full"
-              src={require(`../images/movies/star-wars-${index}.jpg`)}
+              src={require(`../images/people/star-wars-person-${index}.jpg`)}
               alt="movie backdrop"
             />
-            <div className="bg-white text-gray-700 p-3 flex-grow">
-              <p className="font-bold">
-                Episode {smallRomanNum(index)}: {data.title}
-              </p>
-              <p>Director: {data.director}</p>
-              <p>Producers: {data.producer}</p>
-              <p>Release Date: {data.release_date}</p>
-              <p className="sm:text-sm md:text-base">
-                Opening Crawl: {data.opening_crawl}
-              </p>
+            <div className="bg-white text-gray-700 p-3 min-w-[400px]">
+              <p className="font-bold">Name: {data.name}</p>
+              <p>Height: {data.height}</p>
+              <p>Mass: {data.mass}</p>
+              <p>Skin Color: {data.skin_color}</p>
+              <p>Eye Color: {data.eye_color}</p>
+              <p>Gender: {data.gender}</p>
+              <p>Birth year: {data.birth_year}</p>
             </div>
           </div>
         </div>
@@ -52,4 +49,4 @@ const Film = () => {
   );
 };
 
-export default Film;
+export default Person;
