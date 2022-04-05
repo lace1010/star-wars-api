@@ -12,6 +12,7 @@ const Person = () => {
   const index = location.state.index;
   const [data, setData] = useState(null);
   const [relatedFilms, setRelatedFilms] = useState(null);
+  const [homeWorld, setHomeworld] = useState(null);
 
   useEffect(() => {
     // for promise to work in useEffect. need to put async function inside then call it
@@ -27,29 +28,29 @@ const Person = () => {
     const fetchCharacters = async () => {
       // if data exist. set related characters array by calling utility function and wait for it
       if (data) {
-        const x = await relatedSwapi(data.films);
-        setRelatedFilms(x);
+        setRelatedFilms(await relatedSwapi(data.films));
+        setHomeworld(await callSingleSwapi(data.homeworld));
       }
     };
-
     fetchCharacters();
   }, [data]);
 
   return (
     <>
       <Header selected="people" />
-      {!data ? (
+      {!data && !homeWorld ? (
         <Loading />
       ) : (
         <div className="singleContainer">
           <div className="singleInfoContainer">
             <img
-              className="object-cover max-h-[450px] md:max-h-[350px] w-full"
+              className="singleInfoImg"
               src={require(`../images/people/star-wars-person-${index}.jpg`)}
               alt="movie backdrop"
             />
-            <div className="bg-white text-gray-700 p-3 min-w-[400px]">
+            <div className="singleInfoText">
               <p className="font-bold">Name: {data.name}</p>
+              <p>Homeworld: {homeWorld ? homeWorld.name : "loading... "}</p>
               <p>Height: {data.height}</p>
               <p>Mass: {data.mass}</p>
               <p>Skin Color: {data.skin_color}</p>
@@ -64,22 +65,26 @@ const Person = () => {
             <div className="relatedWrapper col-span-2">
               <h2 className="relatedHeader">Films </h2>
               <div className="linksWrapper">
-                {relatedFilms?.map((film) => {
-                  return (
-                    <Link
-                      className="relatedLink"
-                      key={film.title}
-                      to="/film"
-                      state={{
-                        url: film.url,
-                        // Grab index by splitting url and grabbing number at end
-                        index: film.episode_id,
-                      }}
-                    >
-                      {film.title}
-                    </Link>
-                  );
-                })}
+                {!relatedFilms ? (
+                  <p>loading...</p>
+                ) : (
+                  relatedFilms?.map((film) => {
+                    return (
+                      <Link
+                        className="relatedLink"
+                        key={film.title}
+                        to="/film"
+                        state={{
+                          url: film.url,
+                          // Grab index by splitting url and grabbing number at end
+                          index: film.episode_id,
+                        }}
+                      >
+                        {film.title}
+                      </Link>
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>

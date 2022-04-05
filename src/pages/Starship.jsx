@@ -6,12 +6,11 @@ import Loading from "../components/Loading";
 import callSingleSwapi from "../utils/callSingleSwapi";
 import relatedSwapi from "../utils/relatedSwapi";
 
-const Planet = () => {
+const Starship = () => {
   const location = useLocation();
   const url = location.state.url;
   const index = location.state.index;
   const [data, setData] = useState(null);
-  const [residents, setResidents] = useState(null);
   const [relatedFilms, setRelatedFilms] = useState(null);
 
   useEffect(() => {
@@ -22,14 +21,13 @@ const Planet = () => {
     fetchData();
   }, [url]);
 
-  // Find related films and residents
+  // Find related films
   useEffect(() => {
     // for promise to work in useEffect. need to put async function inside then call it
     const fetchCharacters = async () => {
       // if data exist. set related characters array by calling utility function and wait for it
       if (data) {
         setRelatedFilms(await relatedSwapi(data.films));
-        setResidents(await relatedSwapi(data.residents));
       }
     };
     fetchCharacters();
@@ -37,27 +35,31 @@ const Planet = () => {
 
   return (
     <>
-      <Header selected="planets" />
-      {!data && !residents ? (
+      <Header selected="starships" />
+      {!data ? (
         <Loading />
       ) : (
         <div className="singleContainer">
           <div className="singleInfoContainer">
             <img
               className="singleInfoImg"
-              src={require(`../images/planets/star-wars-planet-${index}.jpg`)}
+              src={require(`../images/starships/star-wars-starship-${index}.jpg`)}
               alt="planet backdrop"
             />
             <div className="singleInfoText">
               <p className="font-bold">Name: {data.name}</p>
-              <p>Rotation period: {data.rotation_period}</p>
-              <p>Orbital period: {data.orbital_period}</p>
-              <p>Diameter: {data.diameter}</p>
-              <p>Climate: {data.climate}</p>
-              <p>Gravity: {data.gravity}</p>
-              <p>Terrain: {data.terrain}</p>
-              <p>Surface water: {data.surface_water}</p>
-              <p>Population: {data.population}</p>
+              <p>Model: {data.model}</p>
+              <p className="w-fit">Manufacturer: {data.manufacturer}</p>
+              <p>Cost in credits: {data.cost_in_credits}</p>
+              <p>Length: {data.length}</p>
+              <p>Max atmosphere speed: {data.max_atmosphering_speed}</p>
+              <p>Crew: {data.crew}</p>
+              <p>Passengers: {data.passengers}</p>
+              <p>Consumables: {data.consumables}</p>
+              <p>Cargo capacity: {data.cargo_capacity}</p>
+              <p>Hyperdrive rating: {data.hyperdrive_rating}</p>
+              <p>MGLT: {data.MGLT}</p>
+              <p>Starship class: {data.starship_class}</p>
             </div>
           </div>
 
@@ -88,40 +90,6 @@ const Planet = () => {
                 )}
               </div>
             </div>
-
-            {/* residents */}
-            {residents?.length !== 0 && (
-              <div className="relatedWrapper col-span-1">
-                <h2 className="relatedHeader">Residents</h2>
-                <div className="linksWrapper">
-                  {!residents ? (
-                    <p>loading...</p>
-                  ) : (
-                    residents?.map((character, i) => {
-                      const ind = character.url.split("/")[5];
-                      return (
-                        <Link
-                          className="relatedLink"
-                          key={character.name}
-                          to="/person"
-                          state={{
-                            url: character.url,
-                            // Grab index by splitting url and grabbing number at end
-                            // Have to make condition bc api is broke at 17 for people
-                            index:
-                              character.url.split("/")[5] <= 17
-                                ? ind
-                                : parseInt(ind) - 1,
-                          }}
-                        >
-                          {character.name}
-                        </Link>
-                      );
-                    })
-                  )}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -130,4 +98,4 @@ const Planet = () => {
   );
 };
 
-export default Planet;
+export default Starship;

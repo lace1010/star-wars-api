@@ -8,9 +8,11 @@ import People from "./pages/People";
 import Planets from "./pages/Planets";
 import Planet from "./pages/Planet";
 import Species from "./pages/Species";
+import SingSpecies from "./pages/SingSpecies";
 import Starships from "./pages/Starships";
 import Vehicles from "./pages/Vehicles";
 import Person from "./pages/Person";
+import Starship from "./pages/Starship";
 
 function App() {
   return (
@@ -33,7 +35,9 @@ function App() {
           <Route path="/planets" element={<Planets />}></Route>
           <Route path="/planet" element={<Planet />}></Route>
           <Route path="/species" element={<Species />}></Route>
+          <Route path="/singspecies" element={<SingSpecies />}></Route>
           <Route path="/starships" element={<Starships />}></Route>
+          <Route path="/starship" element={<Starship />}></Route>
           <Route path="/vehicles" element={<Vehicles />}></Route>
         </Routes>
       </BrowserRouter>

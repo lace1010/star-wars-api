@@ -14,6 +14,7 @@ const Film = () => {
   const [data, setData] = useState(null);
   const [relatedCharacters, setRelatedCharacters] = useState(null);
   const [relatedPlanets, setRelatedPlanets] = useState(null);
+  const [relatedSpecies, setRelatedSpecies] = useState(null);
 
   useEffect(() => {
     // for promise to work in useEffect. need to put async function inside then call it
@@ -23,26 +24,16 @@ const Film = () => {
     fetchData();
   }, [url]);
 
-  // Find related characters
+  // Find related characters and planets
   useEffect(() => {
     // for promise to work in useEffect. need to put async function inside then call it
     const fetchCharacters = async () => {
       // if data exist. set related characters array by calling utility function and wait for it
       if (data) {
-        const x = await relatedSwapi(data.characters);
-        setRelatedCharacters(x);
+        setRelatedCharacters(await relatedSwapi(data.characters));
+        setRelatedPlanets(await relatedSwapi(data.planets));
+        setRelatedSpecies(await relatedSwapi(data.species));
       }
-    };
-
-    fetchCharacters();
-  }, [data]);
-
-  // Find related planets
-  useEffect(() => {
-    // for promise to work in useEffect. need to put async function inside then call it
-    const fetchCharacters = async () => {
-      // if data exist. set related characters array by calling utility function and wait for it
-      if (data) setRelatedPlanets(await relatedSwapi(data.planets));
     };
     fetchCharacters();
   }, [data]);
@@ -56,11 +47,11 @@ const Film = () => {
         <div className="singleContaier">
           <div className="singleInfoContainer">
             <img
-              className="object-cover max-h-[450px] md:max-h-[350px] w-full"
+              className="singleInfoImg"
               src={require(`../images/movies/star-wars-${index}.jpg`)}
               alt="movie backdrop"
             />
-            <div className="singleInfoWrapper">
+            <div className="singleInfoText">
               <p className="font-bold">
                 Episode {smallRomanNum(index)}: {data.title}
               </p>
@@ -79,27 +70,31 @@ const Film = () => {
             <div className="relatedWrapper col-span-2">
               <h2 className="relatedHeader">Characters </h2>
               <div className="linksWrapper">
-                {relatedCharacters?.map((character, i) => {
-                  const ind = character.url.split("/")[5];
-                  return (
-                    <Link
-                      className="relatedLink"
-                      key={character.name}
-                      to="/person"
-                      state={{
-                        url: character.url,
-                        // Grab index by splitting url and grabbing number at end
-                        // Have to make condition bc api is broke at 17 for people
-                        index:
-                          character.url.split("/")[5] <= 17
-                            ? ind
-                            : parseInt(ind) - 1,
-                      }}
-                    >
-                      {character.name}
-                    </Link>
-                  );
-                })}
+                {!relatedCharacters ? (
+                  <p>loading...</p>
+                ) : (
+                  relatedCharacters?.map((character) => {
+                    const ind = character.url.split("/")[5];
+                    return (
+                      <Link
+                        className="relatedLink"
+                        key={character.name}
+                        to="/person"
+                        state={{
+                          url: character.url,
+                          // Grab index by splitting url and grabbing number at end
+                          // Have to make condition bc api is broke at 17 for people
+                          index:
+                            character.url.split("/")[5] <= 17
+                              ? ind
+                              : parseInt(ind) - 1,
+                        }}
+                      >
+                        {character.name}
+                      </Link>
+                    );
+                  })
+                )}
               </div>
             </div>
 
@@ -107,23 +102,56 @@ const Film = () => {
             <div className="relatedWrapper col-span-1">
               <h2 className="relatedHeader">Planets </h2>
               <div className="linksWrapper">
-                {relatedPlanets?.map((planet) => {
-                  const ind = planet.url.split("/")[5];
-                  return (
-                    <Link
-                      className="relatedLink"
-                      key={planet.name}
-                      to="/planet"
-                      state={{
-                        url: planet.url,
-                        // Grab index by splitting url and grabbing number at end
-                        index: ind,
-                      }}
-                    >
-                      {planet.name}
-                    </Link>
-                  );
-                })}
+                {!relatedPlanets ? (
+                  <p>loading...</p>
+                ) : (
+                  relatedPlanets?.map((planet) => {
+                    const ind = planet.url.split("/")[5];
+                    return (
+                      <Link
+                        className="relatedLink"
+                        key={planet.name}
+                        to="/planet"
+                        state={{
+                          url: planet.url,
+                          // Grab index by splitting url and grabbing number at end
+                          index: ind,
+                        }}
+                      >
+                        {planet.name}
+                      </Link>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+
+            {/* wrapper 3 */}
+
+            <div className="relatedWrapper col-span-2 mt-10">
+              <h2 className="relatedHeader">Species </h2>
+              <div className="linksWrapper">
+                {!relatedSpecies ? (
+                  <p>loading...</p>
+                ) : (
+                  relatedSpecies?.map((species) => {
+                    const ind = species.url.split("/")[5];
+                    return (
+                      <Link
+                        className="relatedLink"
+                        key={species.name}
+                        to="/singspecies"
+                        state={{
+                          url: species.url,
+                          // Grab index by splitting url and grabbing number at end
+                          index: ind,
+                        }}
+                      >
+                        {species.name}
+                      </Link>
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>
