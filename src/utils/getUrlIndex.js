@@ -12,7 +12,11 @@ const getUrlIndex = (index, count, i, result) => {
     return (index - 1) * 10 + i + 1;
   }
   // Same reason for species as people version,
-  else if (index === 4 && i < 7 && result) {
+  else if (index === 4 && i < 7 && result === "species") {
+    return (index - 1) * 10 + i + 1;
+  }
+  // Same reason for vehicles as people version,
+  else if (index === 4 && i < 9 && result === "vehicles") {
     return (index - 1) * 10 + i + 1;
   } else {
     return i + 1;

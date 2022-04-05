@@ -51,7 +51,7 @@ const Species = () => {
                   state={{
                     url: result.url,
                     // send the currect index to Person page based on which set of results is being returned (util function has the logic)
-                    index: getUrlIndex(index, data.count, i, result),
+                    index: getUrlIndex(index, data.count, i, "species"),
                   }}
                 >
                   <div className="gridCellWithImages">
@@ -61,12 +61,13 @@ const Species = () => {
                         index,
                         data.count,
                         i,
-                        result
+                        "species"
                       )}.jpg`)}
                       alt="movie backdrop"
                     />
                     <p className="gridCellInfo">
-                      {getUrlIndex(index, data.count, i, result)}) {result.name}
+                      {getUrlIndex(index, data.count, i, "species")}){" "}
+                      {result.name}
                     </p>
                   </div>
                 </Link>

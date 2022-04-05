@@ -54,7 +54,6 @@ const Starships = () => {
                     index: getUrlIndex(index, data.count, i),
                   }}
                 >
-                  {console.log(i)}
                   <div className="gridCellWithImages">
                     <img
                       className="gridCellImage"

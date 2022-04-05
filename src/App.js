@@ -13,6 +13,7 @@ import Starships from "./pages/Starships";
 import Vehicles from "./pages/Vehicles";
 import Person from "./pages/Person";
 import Starship from "./pages/Starship";
+import Vehicle from "./pages/Vehicle";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/starships" element={<Starships />}></Route>
           <Route path="/starship" element={<Starship />}></Route>
           <Route path="/vehicles" element={<Vehicles />}></Route>
+          <Route path="/vehicle" element={<Vehicle />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
